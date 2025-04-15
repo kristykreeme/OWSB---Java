@@ -5,7 +5,7 @@ Download and install Git if you haven’t already:
 Step 2: Clone the Project
 1. Open **IntelliJ IDEA**
 2. Click **“Get from Version Control”**
-3. Paste this link: https://github.com/kristykreeme/OWSB---Java.git
+3. Paste this link: ****https://github.com/kristykreeme/OWSB---Java.git****
 
 4. Click **Clone** and let IntelliJ load everything
 
@@ -41,7 +41,7 @@ Work only inside your folder, and don’t edit others’ code without checking f
 
 🟢 Every time **before** you start working:
 
-bash
+```bash
 git pull origin main
 git pull origin main
 
