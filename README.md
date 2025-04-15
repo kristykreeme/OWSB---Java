@@ -41,7 +41,7 @@ Work only inside your folder, and don’t edit others’ code without checking f
 
 ```bash
 
-🟢 Every time **before** you start working:
+🟢 Every time before you start working:
 
 git pull origin main
 
