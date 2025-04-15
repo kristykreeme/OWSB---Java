@@ -39,10 +39,10 @@ Work only inside your folder, and don’t edit others’ code without checking f
 
 🔄 How to Push & Pull Code
 
+```bash
+
 🟢 Every time **before** you start working:
 
-```bash
-git pull origin main
 git pull origin main
 
 
