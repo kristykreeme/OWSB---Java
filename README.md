@@ -5,7 +5,7 @@ Download and install Git if you haven’t already:
 Step 2: Clone the Project
 1. Open **IntelliJ IDEA**
 2. Click **“Get from Version Control”**
-3. Paste this link: https://github.com/YOUR-USERNAME/owsb-java-project.git
+3. Paste this link: https://github.com/kristykreeme/OWSB---Java.git
 
 4. Click **Clone** and let IntelliJ load everything
 
