@@ -12,6 +12,8 @@ Step 2: Clone the Project
 🗂 Project Folder Structure
 
 Here’s how we’ve organized the files:
+```bash
+
 src/ └── main/ 
       ├── Admin/ → for user registration 
       ├── SalesManager/ → for PR and sales logic 
@@ -22,7 +24,7 @@ src/ └── main/
       ├── utils/ → helper files (e.g., file handling) 
       └── MainApp.java → the main entry point of the program
 
-
+```
 👥 Roles & Responsibilities
 
 | Role             | Person     | Task Summary                        |
@@ -35,7 +37,6 @@ src/ └── main/
 
 Work only inside your folder, and don’t edit others’ code without checking first.
 
----
 
 🔄 How to Push & Pull Code
 
