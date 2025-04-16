@@ -29,11 +29,11 @@ src/ └── main/
 
 | Role             | Person     | Task Summary                        |
 |------------------|------------|-------------------------------------|
-| Admin            | [Name]     | Register users, manage accounts     |
-| Sales Manager    | [Name]     | Add sales, raise PR                 |
-| Purchase Manager | [Name]     | View PRs, create PO                 |
-| Inventory Manager| [Name]     | Manage and update stock             |
-| Finance Manager  | [Name]     | Approve PO and handle payments      |
+| Admin            | Kritikaa   | Register users, manage accounts     |
+| Sales Manager    | Dharshan   | Add sales, raise PR                 |
+| Purchase Manager | Siva       | View PRs, create PO                 |
+| Inventory Manager| Sangeeta   | Manage and update stock             |
+| Finance Manager  | Michelle   | Approve PO and handle payments      |
 
 Work only inside your folder, and don’t edit others’ code without checking first.
 
