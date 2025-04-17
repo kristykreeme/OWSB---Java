@@ -1,0 +1,4 @@
+ITM-1001,Rice (5kg),Supplier A,250 units
+ITM-1002,Sugar (1kg),Supplier B,175 units
+ITM-1003,Flour (2kg),Supplier C,20 units
+ITM-1004,Milk (1L),Supplier D,120 units
