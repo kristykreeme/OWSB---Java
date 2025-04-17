@@ -28,8 +28,7 @@ public class Item {
     public int getStockLevel() {
         return stockLevel;
     }
-
-    public void setStockLevel(int stockLevel) {
+                                                                                                     public void setStockLevel(int stockLevel) {
         this.stockLevel = stockLevel;
     }
 }
