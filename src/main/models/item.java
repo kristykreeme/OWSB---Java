@@ -1,5 +1,4 @@
-
-package InventoryManager;
+package models;
 
 public class Item {
     private String code;
@@ -34,3 +33,4 @@ public class Item {
         this.stockLevel = stockLevel;
     }
 }
+
