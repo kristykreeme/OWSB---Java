@@ -1,0 +1,4 @@
+U001,admin,admin123,Admin
+U002,sales,sales123,SalesManager
+U003,purchase,purchase123,PurchaseManager
+U999,testuser,password123,Admin
