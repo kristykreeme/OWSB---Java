@@ -1,35 +1,35 @@
 package models;
 
 public class Item {
-    private String code;
+    private String itemID;
     private String name;
-    private String supplier;
+    private String supplierID;
     private int stockLevel;
 
-    public Item(String code, String name, String supplier, int stockLevel) {
-        this.code = code;
+    public Item(String itemID, String name, String supplierID, int stockLevel) {
+        this.itemID = itemID;
         this.name = name;
-        this.supplier = supplier;
+        this.supplierID = supplierID;
         this.stockLevel = stockLevel;
     }
 
-    public String getCode() {
-        return code;
+    public String getItemID() {
+        return itemID;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getSupplier() {
-        return supplier;
+    public String getSupplierID() {
+        return supplierID;
     }
 
     public int getStockLevel() {
         return stockLevel;
     }
-                                                                                                     public void setStockLevel(int stockLevel) {
+
+    public void setStockLevel(int stockLevel) {
         this.stockLevel = stockLevel;
     }
 }
-

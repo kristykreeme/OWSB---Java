@@ -14,7 +14,7 @@ public class StockReport {
             writer.write("Item Code,Item Name,Supplier,Stock Level,Status\n");
             for (Item item : items) {
                 String status = item.getStockLevel() < 60 ? "Low Stock" : "OK";
-                writer.write(item.getCode() + "," + item.getName() + "," + item.getSupplier() + "," + item.getStockLevel() + "," + status + "\n");
+                writer.write(item.getItemID() + "," + item.getName() + "," + item.getSupplierID() + "," + item.getStockLevel() + "," + status + "\n");
             }
             System.out.println("Stock report generated successfully: " + filePath);
         } catch (IOException e) {

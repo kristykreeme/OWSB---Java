@@ -11,15 +11,16 @@ public class ItemFileHandler {
         List<Item> items = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            br.readLine();
+            br.readLine(); // Skip header
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 4) {
-                    String code = parts[0];
+                    String itemID = parts[0];
                     String name = parts[1];
-                    String supplier = parts[2];
+                    String supplierID = parts[2];
                     int stockLevel = Integer.parseInt(parts[3]);
-                    items.add(new Item(code, name, supplier, stockLevel));
+
+                    items.add(new Item(itemID, name, supplierID, stockLevel));
                 }
             }
         } catch (IOException | NumberFormatException e) {
@@ -30,9 +31,9 @@ public class ItemFileHandler {
 
     public static void saveItems(String filePath, List<Item> items) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-            bw.write("Item Code,Item Name,Supplier,Stock Level\n");
+            bw.write("Item ID,Item Name,Supplier ID,Stock Level\n");
             for (Item item : items) {
-                bw.write(item.getCode() + "," + item.getName() + "," + item.getSupplier() + "," + item.getStockLevel() + "\n");
+                bw.write(item.getItemID() + "," + item.getName() + "," + item.getSupplierID() + "," + item.getStockLevel() + "\n");
             }
         } catch (IOException e) {
             System.err.println("Error saving items: " + e.getMessage());

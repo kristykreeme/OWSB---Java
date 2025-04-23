@@ -21,13 +21,13 @@ public class InventoryManager {
         System.out.println("Item Code\tItem Name\tSupplier\tStock Level");
         for (Item item : items) {
             String stockDisplay = item.getStockLevel() < 60 ? "Low Stock" : String.valueOf(item.getStockLevel());
-            System.out.println(item.getCode() + "\t\t" + item.getName() + "\t\t" + item.getSupplier() + "\t\t" + stockDisplay);
+            System.out.println(item.getItemID() + "\t\t" + item.getName() + "\t\t" + item.getSupplierID() + "\t\t" + stockDisplay);
         }
     }
 
     public void updateStock(String itemCode, int quantity) {
         for (Item item : items) {
-            if (item.getCode().equals(itemCode)) {
+            if (item.getItemID().equals(itemCode)) {
                 item.setStockLevel(item.getStockLevel() + quantity);
                 System.out.println("Stock updated for item: " + item.getName() + ". New stock level: " + item.getStockLevel());
                 return;
@@ -59,4 +59,9 @@ public class InventoryManager {
     public void saveItemsToFile(String filePath) {
         ItemFileHandler.saveItems(filePath, this.items);
     }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
 }
