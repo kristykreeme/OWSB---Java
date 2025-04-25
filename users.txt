@@ -1,4 +1,4 @@
-U001,admin,admin123,Admin
-U002,sales,sales123,SalesManager
-U003,purchase,purchase123,PurchaseManager
-U999,testuser,password123,Admin
+U001,admin,admin123,admin@email.com,0123456789,Admin
+U002,sales,sales123,sales@email.com,0198765432,SalesManager
+U003,purchase,purchase123,purchase@email.com,0173344556,PurchaseManager
+U999,testuser,password123,test@email.com,0111122233,Admin

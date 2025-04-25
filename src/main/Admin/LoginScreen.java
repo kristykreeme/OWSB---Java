@@ -1,108 +1,86 @@
-package main.Admin;
+import utils.FileUtils;
+import models.User;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import main.models.User;
-import main.utils.FileUtils;
 
 public class LoginScreen extends JFrame {
-
-    private final JTextField usernameField;
-    private final JPasswordField passwordField;
-
     public LoginScreen() {
-        setTitle("OWSB Login");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 500);
+        setTitle("Login - OMEGA WHOLESALE SDN BHD");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(400, 300);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // ==== Left Panel: Blue Branding ====
-        JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(new Color(30, 100, 200));
-        leftPanel.setPreferredSize(new Dimension(300, 0));
-        leftPanel.setLayout(new GridBagLayout());
+        // Title
+        JLabel titleLabel = new JLabel("OMEGA WHOLESALE SDN BHD", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
+        add(titleLabel, BorderLayout.NORTH);
 
-        JLabel branding = new JLabel("<html><center><h2 style='color:white;'>OMEGA WHOLESALE</h2><h4 style='color:white;'>SDN BHD</h4></center></html>");
-        branding.setForeground(Color.WHITE);
-        branding.setHorizontalAlignment(SwingConstants.CENTER);
-        leftPanel.add(branding);
+        // Center panel
+        JPanel centerPanel = new JPanel(new GridLayout(4, 1, 10, 10));
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        JTextField usernameField = new JTextField();
+        JPasswordField passwordField = new JPasswordField();
+        centerPanel.add(new JLabel("Username:"));
+        centerPanel.add(usernameField);
+        centerPanel.add(new JLabel("Password:"));
+        centerPanel.add(passwordField);
+        add(centerPanel, BorderLayout.CENTER);
 
-        // ==== Right Panel: Login Form ====
-        JPanel rightPanel = new JPanel();
-        rightPanel.setBackground(Color.WHITE);
-        rightPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        // Button panel
+        JButton loginButton = new JButton("Login");
+        loginButton.setFocusPainted(false);
+        loginButton.setBackground(Color.BLACK);
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setPreferredSize(new Dimension(100, 30));
+        loginButton.addActionListener(e -> {
+            String username = usernameField.getText();
+            String password = new String(passwordField.getPassword());
 
-        JLabel loginTitle = new JLabel("Login");
-        loginTitle.setFont(new Font("Arial", Font.BOLD, 22));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        rightPanel.add(loginTitle, gbc);
-
-        JLabel subtitle = new JLabel("Enter your credentials to access the system");
-        subtitle.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridy++;
-        rightPanel.add(subtitle, gbc);
-
-        gbc.gridwidth = 1;
-
-        gbc.gridy++;
-        gbc.gridx = 0;
-        rightPanel.add(new JLabel("Username:"), gbc);
-        gbc.gridx = 1;
-        usernameField = new JTextField(15);
-        rightPanel.add(usernameField, gbc);
-
-        gbc.gridy++;
-        gbc.gridx = 0;
-        rightPanel.add(new JLabel("Password:"), gbc);
-        gbc.gridx = 1;
-        passwordField = new JPasswordField(15);
-        rightPanel.add(passwordField, gbc);
-
-        gbc.gridy++;
-        gbc.gridx = 0;
-        gbc.gridwidth = 2;
-        JButton loginBtn = new JButton("LOGIN");
-        loginBtn.setBackground(new Color(30, 100, 200));
-        loginBtn.setForeground(Color.WHITE);
-        loginBtn.setFocusPainted(false);
-        loginBtn.addActionListener(this::handleLogin);
-        rightPanel.add(loginBtn, gbc);
-
-        gbc.gridy++;
-        JLabel footer = new JLabel("© 2025 Omega Wholesale Sdn Bhd", SwingConstants.CENTER);
-        footer.setFont(new Font("Arial", Font.PLAIN, 12));
-        rightPanel.add(footer, gbc);
-
-        add(leftPanel, BorderLayout.WEST);
-        add(rightPanel, BorderLayout.CENTER);
-    }
-
-    private void handleLogin(ActionEvent e) {
-        String username = usernameField.getText().trim();
-        String password = String.valueOf(passwordField.getPassword());
-
-        User user = FileUtils.authenticateUser(username, password);
-        if (user != null) {
-            JOptionPane.showMessageDialog(this, "Login successful!");
-            if (user.getRole().equalsIgnoreCase("Admin")) {
-                new AdminDashboard(user).setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Only admin can login from this screen.");
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill in all fields.");
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Invalid credentials!");
-        }
+
+            User user = FileUtils.authenticateUser(username, password);
+            if (user != null) {
+                JOptionPane.showMessageDialog(this, "Login successful! Welcome, " + user.getUsername());
+                // You can now redirect based on user.getRole()
+                dispose(); // Close the login window
+
+                switch (user.getRole()) {
+                    case "Admin":
+                        new AdminDashboard(); // Or whatever your Admin panel class is
+                        break;
+                    case "SalesManager":
+                        new SalesManagerPanel(); // Your sales UI class
+                        break;
+                    case "PurchaseManager":
+                        new PurchaseManagerPanel(); // Your purchase UI class
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(this, "Unknown role: " + user.getRole());
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid credentials.");
+            }
+        });
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(loginButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        setVisible(true);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new LoginScreen().setVisible(true));
+        // Optional: Set modern look and feel
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception ignored) {}
+        new LoginScreen();
     }
 }
