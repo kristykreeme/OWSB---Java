@@ -1,67 +1,102 @@
 package InventoryManager;
 
 import models.Item;
-// import models.PurchaseOrder; ( EDIT WHEN THERE IS PURCHACE ORDER CLASS !!! )
-import InventoryManager.StockReport;
 import utils.ItemFileHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryManager {
     private List<Item> items;
-    private StockReport stockReport;
 
     public InventoryManager() {
-        this.items = new ArrayList<>();
-        this.stockReport = new StockReport();
+        items = new ArrayList<>();
     }
 
-    public void viewItems() {
-        System.out.println("Item Code\tItem Name\tSupplier\tStock Level");
-        for (Item item : items) {
-            String stockDisplay = item.getStockLevel() < 60 ? "Low Stock" : String.valueOf(item.getStockLevel());
-            System.out.println(item.getItemID() + "\t\t" + item.getName() + "\t\t" + item.getSupplierID() + "\t\t" + stockDisplay);
+    // Load items from a file
+    public void loadItems(String filePath) {
+        try {
+            items = ItemFileHandler.readItemsFromFile(filePath);
+            System.out.println("Items loaded successfully from " + filePath);
+        } catch (IOException e) {
+            System.err.println("Error loading items: " + e.getMessage());
         }
     }
 
-    public void updateStock(String itemCode, int quantity) {
+    // Save items to a file
+    public void saveItems(String filePath) {
+        try {
+            ItemFileHandler.writeItemsToFile(filePath, items);
+            System.out.println("Items saved successfully to " + filePath);
+        } catch (IOException e) {
+            System.err.println("Error saving items: " + e.getMessage());
+        }
+    }
+
+    // Generate a stock report
+    public void generateStockReport(String filePath) {
+        try {
+            StockReport.generate(filePath, items);
+            System.out.println("Stock report generated successfully at " + filePath);
+        } catch (IOException e) {
+            System.err.println("Error generating stock report: " + e.getMessage());
+        }
+    }
+
+    // Display all items in the inventory
+    public void displayItems() {
+        if (items.isEmpty()) {
+            System.out.println("No items in the inventory.");
+        } else {
+            System.out.println("Inventory Items:");
+            System.out.println("------------------------------------------------------------");
+            System.out.printf("%-10s %-20s %-15s %-10s %-10s\n", "Item ID", "Item Name", "Supplier", "Stock", "Reorder");
+            System.out.println("------------------------------------------------------------");
+            for (Item item : items) {
+                System.out.printf("%-10s %-20s %-15s %-10d %-10d\n",
+                        item.getItemID(),
+                        item.getName(),
+                        item.getSupplierID(),
+                        item.getStockLevel(),
+                        item.getReorderLevel());
+            }
+        }
+    }
+
+    // Edit an item's stock or reorder level
+    public void editItem(String itemID, int newStockLevel, int newReorderLevel) {
         for (Item item : items) {
-            if (item.getItemID().equals(itemCode)) {
-                item.setStockLevel(item.getStockLevel() + quantity);
-                System.out.println("Stock updated for item: " + item.getName() + ". New stock level: " + item.getStockLevel());
+            if (item.getItemID().equals(itemID)) {
+                item.setStockLevel(newStockLevel);
+                item.setReorderLevel(newReorderLevel);
+                System.out.println("Item updated: " + itemID);
                 return;
             }
         }
-        System.out.println("Item not found.");
+        System.out.println("Item not found: " + itemID);
     }
 
-   // public void updateStockFromPOs(List<PurchaseOrder> approvedPOs) {
-       // for (PurchaseOrder po : approvedPOs) {
-          //  String itemCode = po.getItemCode(); // Ensure your PO class has getItemCode()
-          //  int quantityReceived = po.getQuantity();
-          //  updateStock(itemCode, quantityReceived);
-       // }
-  //  }
+    public static void main(String[] args) {
+        InventoryManager manager = new InventoryManager();
 
-    public void generateStockReport(String filePath) {
-        stockReport.generateStockReport(items, filePath);
+        // Example usage
+        String filePath = "items.txt";
+        String reportPath = "stock_report.txt";
+
+        // Load items from file
+        manager.loadItems(filePath);
+
+        // Display items
+        manager.displayItems();
+
+        // Edit an item
+        manager.editItem("ITM-001", 300, 60);
+
+        // Save updated items to file
+        manager.saveItems(filePath);
+
+        // Generate stock report
+        manager.generateStockReport(reportPath);
     }
-
-    public void addItem(Item item) {
-        items.add(item);
-    }
-
-    public void loadItemsFromFile(String filePath) {
-        this.items = ItemFileHandler.loadItems(filePath);
-    }
-
-    public void saveItemsToFile(String filePath) {
-        ItemFileHandler.saveItems(filePath, this.items);
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
 }

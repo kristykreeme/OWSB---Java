@@ -1,0 +1,19 @@
+*******************************
+         STOCK REPORT          
+*******************************
+
+SUMMARY:
+Total Items: 5
+-------------------------------
+
+Item ID    Item Name            Supplier        Stock      Reorder   
+-------------------------------------------------------------
+ITM-001    Rice                 Supplier A      250        50        
+ITM-002    Milk                 Supplier B      15         30         (Low Stock)
+ITM-003    Flour                Supplier C      100        20        
+ITM-004    Oil                  Supplier D      10         25         (Low Stock)
+ITM-005    Soap                 Supplier E      200        50        
+
+*******************************
+     END OF STOCK REPORT      
+*******************************

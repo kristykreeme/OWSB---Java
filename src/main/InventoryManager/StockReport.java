@@ -1,24 +1,48 @@
 package InventoryManager;
 
+import models.Item;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import models.Item;
 
 public class StockReport {
 
-    public void generateStockReport(List<Item> items, String filePath)
-    {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("Item Code,Item Name,Supplier,Stock Level,Status\n");
+    // Generates a stock report and saves it to a file
+    public static void generate(String filePath, List<Item> items) throws IOException {
+        int totalItems = items.size();
+        int lowStockCount = 0;
+        int totalStock = 0;
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            bw.write("Stock Report\n");
+            bw.write("===============================\n");
+            bw.write("Total Items: " + totalItems + "\n");
+            bw.write("===============================\n\n");
+
+            bw.write("Low Stock Items:\n");
+            bw.write("Item ID,Item Name,Supplier ID,Stock Level,Reorder Level\n");
+
+            // Process each item and classify it
             for (Item item : items) {
-                String status = item.getStockLevel() < 60 ? "Low Stock" : "OK";
-                writer.write(item.getItemID() + "," + item.getName() + "," + item.getSupplierID() + "," + item.getStockLevel() + "," + status + "\n");
+                totalStock += item.getStockLevel();
+                if (item.getStockLevel() < item.getReorderLevel()) {
+                    lowStockCount++;
+                    bw.write(item.getItemID() + "," +
+                            item.getName() + "," +
+                            item.getSupplierID() + "," +
+                            item.getStockLevel() + "," +
+                            item.getReorderLevel() + "\n");
+                }
             }
-            System.out.println("Stock report generated successfully: " + filePath);
-        } catch (IOException e) {
-            System.err.println("Error while generating report: " + e.getMessage());
+
+            // Append summary
+            bw.write("\n===============================\n");
+            bw.write("Summary\n");
+            bw.write("===============================\n");
+            bw.write("Total Stock: " + totalStock + " units\n");
+            bw.write("Low Stock Items: " + lowStockCount + "\n");
         }
     }
 }

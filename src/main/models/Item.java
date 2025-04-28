@@ -5,12 +5,14 @@ public class Item {
     private String name;
     private String supplierID;
     private int stockLevel;
+    private int reorderLevel;
 
-    public Item(String itemID, String name, String supplierID, int stockLevel) {
+    public Item(String itemID, String name, String supplierID, int stockLevel, int reorderLevel) {
         this.itemID = itemID;
         this.name = name;
         this.supplierID = supplierID;
         this.stockLevel = stockLevel;
+        this.reorderLevel = reorderLevel;
     }
 
     public String getItemID() {
@@ -31,5 +33,13 @@ public class Item {
 
     public void setStockLevel(int stockLevel) {
         this.stockLevel = stockLevel;
+    }
+
+    public int getReorderLevel() {
+        return reorderLevel;
+    }
+
+    public void setReorderLevel(int reorderLevel) {
+        this.reorderLevel = reorderLevel;
     }
 }

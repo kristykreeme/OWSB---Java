@@ -1,0 +1,6 @@
+Item ID,Item Name,Supplier ID,Stock Level,Reorder Level
+ITM-001,Rice,Supplier A,120,50
+ITM-002,Milk,Supplier B,15,30
+ITM-003,Flour,Supplier C,100,20
+ITM-004,Oil,Supplier D,10,25
+ITM-005,Soap,Supplier E,200,50
