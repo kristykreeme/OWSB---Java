@@ -1,68 +1,44 @@
 package Admin;
 
+import models.User;
+import utils.FileHandler;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class AdminDashboard extends JFrame {
-
     public AdminDashboard() {
-        setTitle("Admin Dashboard - OMEGA WHOLESALE SDN BHD");
-        setSize(800, 600);
+        setTitle("Admin Dashboard");
+        setSize(400, 250);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLayout(new GridLayout(3, 1, 10, 10));
 
-        // Sidebar
-        JPanel sidebar = createSidebar();
-        add(sidebar, BorderLayout.WEST);
+        JButton registerBtn = new JButton("Register New User");
+        JButton viewBtn = new JButton("View Registered Users");
+        JButton exitBtn = new JButton("Exit");
 
-        // Overview Panel
-        JPanel overview = createOverviewPanel();
-        add(overview, BorderLayout.CENTER);
+        registerBtn.addActionListener(e -> new UserRegistrationForm());
+        viewBtn.addActionListener(e -> showUsers());
+        exitBtn.addActionListener(e -> System.exit(0));
 
-        setLocationRelativeTo(null); // Center on screen
+        add(registerBtn);
+        add(viewBtn);
+        add(exitBtn);
+
+        setVisible(true);
     }
 
-    private JPanel createSidebar() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBackground(Color.DARK_GRAY);
-        String[] options = {"Dashboard", "User Management", "Reports", "Logout"};
-        for (String option : options) {
-            JButton button = new JButton(option);
-            button.setForeground(Color.WHITE);
-            button.setBackground(Color.GRAY);
-            button.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(button);
+    private void showUsers() {
+        List<User> users = FileHandler.loadUsers();
+        StringBuilder sb = new StringBuilder();
+        for (User user : users) {
+            sb.append(user.getUsername()).append(" - ").append(user.getRole()).append("\n");
         }
-        return panel;
-    }
-
-    private JPanel createOverviewPanel() {
-        JPanel panel = new JPanel(new GridLayout(2, 2));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        panel.setBackground(Color.WHITE);
-
-        String[] stats = {"Total Users: 50", "Total Sales Managers: 10", "Total Purchase Managers: 5", "Total Inventory Managers: 8"};
-        for (String stat : stats) {
-            panel.add(createOverviewCard(stat));
-        }
-        return panel;
-    }
-
-    private JPanel createOverviewCard(String text) {
-        JPanel card = new JPanel();
-        card.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        card.setBackground(Color.WHITE);
-        card.setLayout(new GridBagLayout());
-        JLabel label = new JLabel(text);
-        label.setFont(new Font("Poppins", Font.BOLD, 16));
-        card.add(label);
-        return card;
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new AdminDashboard().setVisible(true);
-        });
+        JTextArea area = new JTextArea(sb.toString());
+        area.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(area);
+        JOptionPane.showMessageDialog(this, scrollPane, "Registered Users", JOptionPane.INFORMATION_MESSAGE);
     }
 }

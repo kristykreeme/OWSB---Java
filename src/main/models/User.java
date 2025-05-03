@@ -17,27 +17,15 @@ public class User {
         this.role = role;
     }
 
-    public String getId() {
-        return id;
+    public String toFileFormat() {
+        return String.join(";", id, username, password, email, contactNumber, role);
     }
 
-    public String getUsername() {
-        return username;
+    public static User fromFileFormat(String line) {
+        String[] parts = line.split(";");
+        return new User(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]);
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public String getRole() {
-        return role;
-    }
+    public String getUsername() { return username; }
+    public String getRole() { return role; }
 }

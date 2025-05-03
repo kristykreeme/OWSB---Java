@@ -1,6 +1,5 @@
 package FinanceManager;
 
-import models.PO;
 import models.Payment;
 import utils.FileHandler;
 import java.util.Date;
