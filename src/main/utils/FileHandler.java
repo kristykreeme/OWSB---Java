@@ -1,35 +1,63 @@
 package utils;
 
-import models.User;
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileHandler {
-    private static final String FILE_PATH = "users.txt";
 
-    public static List<User> loadUsers() {
-        List<User> users = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                users.add(User.fromFileFormat(line));
+    public static void writeToFile(String path, String content, boolean append) throws IOException {
+        File file = new File(path);
+        File parent = file.getParentFile();
+
+        if (parent != null && !parent.exists()) {
+            parent.mkdirs();
+        }
+
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file, append));
+        writer.write(content);
+        writer.newLine();
+        writer.close();
+    }
+
+    public static List<String> readLines(String path) throws IOException {
+        File file = new File(path);
+        List<String> lines = new ArrayList<>();
+
+        if (!file.exists()) {
+            return lines;
+        }
+
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
+        }
+        reader.close();
+        return lines;
+    }
+
+    public static String hashPassword(String password) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            return java.util.Base64.getEncoder().encodeToString(hash);
+        } catch (Exception e) {
+            return password; // fallback (not secure)
+        }
+    }
+
+    public static boolean isUserIdExists(String path, String id) throws IOException {
+        for (String line : readLines(path)) {
+            String[] data = line.split(",");
+            if (data.length > 0 && data[0].equals(id)) {
+                return true;
             }
-        } catch (IOException e) {
-            // If file doesn't exist, return empty list
         }
-        return users;
-    }
-
-    public static void saveUser(User user) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            bw.write(user.toFileFormat());
-            bw.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static boolean isUsernameTaken(String username) {
-        return loadUsers().stream().anyMatch(u -> u.getUsername().equalsIgnoreCase(username));
+        return false;
     }
 }

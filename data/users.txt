@@ -1,0 +1,2 @@
+A001,admin01,pass123,emily@owsb.com,0123456789,Admin
+S002,sales01,pass123,sales@owsb.com,0123456788,SalesManager

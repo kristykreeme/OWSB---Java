@@ -18,14 +18,10 @@ public class User {
     }
 
     public String toFileFormat() {
-        return String.join(";", id, username, password, email, contactNumber, role);
+        return String.join(",", id, username, password, email, contactNumber, role);
     }
 
-    public static User fromFileFormat(String line) {
-        String[] parts = line.split(";");
-        return new User(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]);
-    }
-
+    public String getId() { return id; }
     public String getUsername() { return username; }
     public String getRole() { return role; }
 }
