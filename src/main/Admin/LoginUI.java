@@ -11,6 +11,12 @@ public class LoginUI extends JFrame {
     private JTextField userIdField;
     private JPasswordField passwordField;
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new LoginUI().setVisible(true);
+        });
+    }
+
     public LoginUI() {
         setTitle("Admin Login");
         setSize(350, 200);
@@ -49,7 +55,7 @@ public class LoginUI extends JFrame {
                 if (data.length >= 6 && data[0].equals(id) && data[2].equals(hashedInput) && data[5].equals("Admin")) {
                     JOptionPane.showMessageDialog(this, "Login successful.");
                     dispose();
-                    new AdminDashboard().setVisible(true);
+                    new AdminDashboardV2().setVisible(true);
                     return;
                 }
             }
