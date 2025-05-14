@@ -4,7 +4,7 @@
 mkdir -p classes
 
 # Compile all Java files
-javac -d classes src/main/java/*.java
+javac -d classes src/main/Admin/*.java
 
 # Run the application
-java -cp classes main.java.MainApp 
+java -cp classes main.Admin.MainApp 
