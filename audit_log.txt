@@ -1,0 +1,25 @@
+1747107532059,A001,UPDATE,Updated role permissions
+
+2025-05-14 12:01:23|SYS001|START|Application started successfully
+2025-05-14 12:06:25|SYS001|START|Application started successfully
+2025-05-14 12:06:29|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:30|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:31|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:31|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:32|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:32|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:32|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:42|AUTH001|LOGIN|User john logged in
+2025-05-14 12:06:55|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:56|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:57|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:57|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:57|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:06:57|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:07:00|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:07:00|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:07:05|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:07:06|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:07:06|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:07:06|AUTH001|LOGIN|User admin logged in
+2025-05-14 12:07:06|AUTH001|LOGIN|User admin logged in

@@ -1,41 +1,46 @@
+import java.util.*;
 package FinanceManager;
 
-import java.util.*;
-
 public class PurchaseOrder {
-    private int poID;
-    private String status;
-    private int supplierID;
-    private int prID;
-    private List<POItem> items;
-    private LocalDate approvalDate;
-    private String approvedBy;
+    private String poID;
+    private String items; // item1:qty;item2:qty
+    private String status; // Pending, Approved, Rejected
+    private String supplier;
 
-    public PurchaseOrder(int poID, String status, int supplierID, int prID) {
+    public PurchaseOrder(String poID, String items, String status, String supplier) {
         this.poID = poID;
+        this.items = items;
         this.status = status;
-        this.supplierID = supplierID;
-        this.prID = prID;
-        this.items = new ArrayList<>();
+        this.supplier = supplier;
     }
 
-    public void addItem(POItem item) {
-        items.add(item);
+    public String getPoID() {
+        return poID;
     }
 
-    public double getTotalAmount() {
-        return items.stream().mapToDouble(item -> item.getQuantity() * item.getUnitPrice()).sum();
+    public String getItems() {
+        return items;
     }
 
-    // Getters and setters
-    public int getPoID() { return poID; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-    public int getSupplierID() { return supplierID; }
-    public int getPrID() { return prID; }
-    public List<POItem> getItems() { return items; }
-    public LocalDate getApprovalDate() { return approvalDate; }
-    public void setApprovalDate(LocalDate approvalDate) { this.approvalDate = approvalDate; }
-    public String getApprovedBy() { return approvedBy; }
-    public void setApprovedBy(String approvedBy) { this.approvedBy = approvedBy; }
+    public String getStatus() {
+        return status;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String toFileString() {
+        return poID + "," + items + "," + status + "," + supplier;
+    }
+
+    public static PurchaseOrder fromFileString(String line) {
+        String[] parts = line.split(",", 4);
+        if (parts.length != 4) return null;
+        return new PurchaseOrder(parts[0], parts[1], parts[2], parts[3]);
+    }
 }
