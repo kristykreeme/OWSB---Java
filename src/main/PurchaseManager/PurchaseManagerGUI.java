@@ -5,7 +5,6 @@ import models.Supplier;
 import models.PR;
 import models.PO;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -363,6 +362,7 @@ public class PurchaseManagerGUI extends JFrame {
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Invalid quantity. Please enter a valid number.");
             }
+
         }
     }
 
