@@ -43,7 +43,7 @@ public class PurchaseManagerGUI extends JFrame {
         btnViewItems.addActionListener(e -> viewItems());
 
         btnViewSuppliers.addActionListener(e -> viewSuppliers());
-        btnViewPRs.addActionListener(e -> JOptionPane.showMessageDialog(this, "View PRs not implemented yet."));
+        btnViewPRs.addActionListener(e -> viewPRs());
         btnGeneratePO.addActionListener(e -> JOptionPane.showMessageDialog(this, "Generate PO not implemented yet."));
         btnViewPOs.addActionListener(e -> JOptionPane.showMessageDialog(this, "View POs not implemented yet."));
     }
@@ -139,5 +139,51 @@ public class PurchaseManagerGUI extends JFrame {
         SwingUtilities.invokeLater(() -> new PurchaseManagerGUI().setVisible(true));
     }
 
+    private List<PR> loadPRsFromFile() {
+        List<PR> prList = new ArrayList<>();
+
+        try {
+            File file = new File("data/prs.txt");
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                PR pr = PR.fromFileString(line);
+                if (pr != null) {
+                    prList.add(pr);
+                }
+            }
+
+            scanner.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error loading PRs: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return prList;
+    }
+
+    private void viewPRs() {
+        List<PR> prList = loadPRsFromFile();
+
+        String[] columnNames = { "PR ID", "Item ID", "Quantity", "Required Date", "Raised By" };
+        String[][] data = new String[prList.size()][5];
+
+        for (int i = 0; i < prList.size(); i++) {
+            PR pr = prList.get(i);
+            data[i][0] = pr.getPrID();
+            data[i][1] = pr.getItemID();
+            data[i][2] = String.valueOf(pr.getQuantity());
+            data[i][3] = pr.getRequiredDate();
+            data[i][4] = pr.getRaisedBy();
+        }
+
+        JTable table = new JTable(data, columnNames);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+
+        JOptionPane.showMessageDialog(this, scrollPane, "List of Purchase Requisitions", JOptionPane.INFORMATION_MESSAGE);
+    }
 
 }
+
