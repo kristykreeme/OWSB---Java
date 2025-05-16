@@ -11,7 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryManagerUI extends JFrame {
+public class
+InventoryManagerUI extends JFrame {
     private DefaultTableModel tableModel;
     private JTable table;
     private List<Item> items;
