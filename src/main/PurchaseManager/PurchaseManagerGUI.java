@@ -1,6 +1,7 @@
 package PurchaseManager;
 
 import models.Item;
+import models.Supplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,11 +40,9 @@ public class PurchaseManagerGUI extends JFrame {
         add(titleLabel, BorderLayout.NORTH);
         add(panel, BorderLayout.CENTER);
 
-        // Only View Items is working for now
         btnViewItems.addActionListener(e -> viewItems());
 
-        // Placeholder messages
-        btnViewSuppliers.addActionListener(e -> JOptionPane.showMessageDialog(this, "View Suppliers not implemented yet."));
+        btnViewSuppliers.addActionListener(e -> viewSuppliers());
         btnViewPRs.addActionListener(e -> JOptionPane.showMessageDialog(this, "View PRs not implemented yet."));
         btnGeneratePO.addActionListener(e -> JOptionPane.showMessageDialog(this, "Generate PO not implemented yet."));
         btnViewPOs.addActionListener(e -> JOptionPane.showMessageDialog(this, "View POs not implemented yet."));
@@ -95,7 +94,50 @@ public class PurchaseManagerGUI extends JFrame {
         JOptionPane.showMessageDialog(this, scrollPane, "List of Items", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private List<Supplier> loadSuppliersFromFile() {
+        List<Supplier> suppliers = new ArrayList<>();
+
+        try {
+            File file = new File("data/suppliers.txt");
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Supplier supplier = Supplier.fromFileString(line);
+                if (supplier != null) {
+                    suppliers.add(supplier);
+                }
+            }
+
+            scanner.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error loading suppliers: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return suppliers;
+    }
+    private void viewSuppliers() {
+        List<Supplier> suppliers = loadSuppliersFromFile();
+
+        String[] columnNames = { "Supplier ID", "Supplier Name" };
+        String[][] data = new String[suppliers.size()][2];
+
+        for (int i = 0; i < suppliers.size(); i++) {
+            Supplier s = suppliers.get(i);
+            data[i][0] = s.getSupplierID();
+            data[i][1] = s.getSupplierName();
+        }
+
+        JTable table = new JTable(data, columnNames);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+
+        JOptionPane.showMessageDialog(this, scrollPane, "List of Suppliers", JOptionPane.INFORMATION_MESSAGE);
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new PurchaseManagerGUI().setVisible(true));
     }
+
+
 }
