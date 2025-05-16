@@ -1,8 +1,8 @@
-package salesmanager;
+package SalesManager;
 
 public class Supplier {
-    private int supplierID;
-    private String name;
+    private final int supplierID;
+    private final String name;
 
     public Supplier(int supplierID, String name) {
         this.supplierID = supplierID;

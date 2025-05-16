@@ -1,12 +1,12 @@
-package salesmanager;
+package SalesManager;
 
 import java.time.LocalDate;
 
 public class PurchaseRequest {
-    private int prID;
-    private int itemID;
-    private int quantity;
-    private LocalDate date;
+    private final int prID;
+    private final int itemID;
+    private final int quantity;
+    private final LocalDate date;
 
     public PurchaseRequest(int prID, int itemID, int quantity, LocalDate date) {
         this.prID = prID;
@@ -33,6 +33,9 @@ public class PurchaseRequest {
 
     @Override
     public String toString() {
-        return "PR ID: " + prID + ", Item ID: " + itemID + ", Quantity: " + quantity + ", Date: " + date;
+        return "PR ID: " + prID +
+                ", Item ID: " + itemID +
+                ", Quantity: " + quantity +
+                ", Date: " + date;
     }
 }

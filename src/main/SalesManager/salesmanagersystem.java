@@ -1,12 +1,14 @@
 package salesmanager;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Main system class for the Sales Manager functionality of Omega Wholesale Sdn Bhd (OWSB)
  */
-public class salesmanagersystem {
+public class SalesManagerSystem {
     private final List<Item> items = new ArrayList<>();
     private final List<Supplier> suppliers = new ArrayList<>();
     private final List<PurchaseRequest> purchaseRequests = new ArrayList<>();
@@ -14,7 +16,7 @@ public class salesmanagersystem {
     private int prCounter = 1;
 
     public static void main(String[] args) {
-        new salesmanager.salesmanagersystem().run();
+        new SalesManagerSystem().run();
     }
 
     public void run() {
@@ -68,7 +70,6 @@ public class salesmanagersystem {
             System.out.print("Enter Item ID: ");
             int id = Integer.parseInt(scanner.nextLine());
 
-            // Check if item ID already exists
             if (items.stream().anyMatch(item -> item.getItemID() == id)) {
                 System.out.println("Error: Item ID already exists!");
                 return;
@@ -104,7 +105,6 @@ public class salesmanagersystem {
             System.out.print("Enter Supplier ID: ");
             int id = Integer.parseInt(scanner.nextLine());
 
-            // Check if supplier ID already exists
             if (suppliers.stream().anyMatch(supplier -> supplier.getSupplierID() == id)) {
                 System.out.println("Error: Supplier ID already exists!");
                 return;
@@ -153,7 +153,6 @@ public class salesmanagersystem {
                         System.out.println("Sale recorded successfully!");
                         System.out.println("Remaining stock for " + item.getName() + ": " + item.getQuantity());
 
-                        // Automatically suggest raising PR if stock is low
                         if (item.getQuantity() < 10) {
                             System.out.println("WARNING: Low stock! Consider raising a Purchase Request.");
                         }
@@ -183,7 +182,6 @@ public class salesmanagersystem {
             System.out.print("Enter Item ID: ");
             int itemID = Integer.parseInt(scanner.nextLine());
 
-            // Verify item exists
             boolean itemExists = items.stream().anyMatch(item -> item.getItemID() == itemID);
             if (!itemExists) {
                 System.out.println("Error: Item not found!");
@@ -213,7 +211,6 @@ public class salesmanagersystem {
         } else {
             purchaseRequests.forEach(pr -> {
                 System.out.println(pr);
-                // Find and display item name for reference
                 items.stream()
                         .filter(item -> item.getItemID() == pr.getItemID())
                         .findFirst()

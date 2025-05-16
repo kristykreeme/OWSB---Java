@@ -1,10 +1,10 @@
-package salesmanager;
+package SalesManager;
 
 public class Item {
-    private int itemID;
-    private String name;
+    private final int itemID;
+    private final String name;
     private int quantity;
-    private double price;
+    private final double price;
 
     public Item(int itemID, String name, int quantity, double price) {
         this.itemID = itemID;
@@ -29,12 +29,14 @@ public class Item {
         return price;
     }
 
-    public void reduceQuantity(int qty) {
-        this.quantity -= qty;
+    public void reduceQuantity(int amount) {
+        if (amount > 0 && quantity >= amount) {
+            quantity -= amount;
+        }
     }
 
     @Override
     public String toString() {
-        return "Item ID: " + itemID + ", Name: " + name + ", Quantity: " + quantity + ", Price: RM " + String.format("%.2f", price);
+        return "Item ID: " + itemID + ", Name: " + name + ", Quantity: " + quantity + ", Price: " + price;
     }
 }
