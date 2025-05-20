@@ -1,4 +1,4 @@
-Step 1: Install Git
+giStep 1: Install Git
 Download and install Git if you haven’t already:
 👉 https://git-scm.com/downloads
 

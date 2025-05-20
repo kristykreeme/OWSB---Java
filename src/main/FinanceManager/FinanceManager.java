@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 package FinanceManager;
 
 import java.io.*;
@@ -54,9 +52,9 @@ public class FinanceManager {
         }
     }
 
-    static ArrayList<PurchaseOrder> loadPOs(String filename) {
+    static ArrayList<PurchaseOrder> loadPOs() {
         ArrayList<PurchaseOrder> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("PurchaseOrder.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 list.add(PurchaseOrder.fromString(line));
@@ -67,8 +65,8 @@ public class FinanceManager {
         return list;
     }
 
-    static void savePOs(ArrayList<PurchaseOrder> list, String filename) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(filename))) {
+    static void savePOs(ArrayList<PurchaseOrder> list) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter("PurchaseOrder.txt"))) {
             for (PurchaseOrder po : list) {
                 pw.println(po);
             }
@@ -78,7 +76,7 @@ public class FinanceManager {
     }
 
     static void viewPendingPOs() {
-        ArrayList<PurchaseOrder> list = loadPOs("PurchaseOrder.txt");
+        ArrayList<PurchaseOrder> list = loadPOs();
         for (PurchaseOrder po : list) {
             if (po.status.equalsIgnoreCase("Pending")) {
                 System.out.println("PO ID: " + po.poID + " | Supplier: " + po.supplierID + " | Status: " + po.status);
@@ -87,7 +85,7 @@ public class FinanceManager {
     }
 
     static void approveRejectPO() {
-        ArrayList<PurchaseOrder> list = loadPOs("PurchaseOrder.txt");
+        ArrayList<PurchaseOrder> list = loadPOs();
         viewPendingPOs();
         System.out.print("Enter PO ID to update: ");
         String id = sc.nextLine();
@@ -103,12 +101,12 @@ public class FinanceManager {
                 break;
             }
         }
-        savePOs(list, "PurchaseOrder.txt");
+        savePOs(list);
         System.out.println("PO updated.");
     }
 
     static void viewApprovedPOs() {
-        ArrayList<PurchaseOrder> list = loadPOs("PurchaseOrder.txt");
+        ArrayList<PurchaseOrder> list = loadPOs();
         for (PurchaseOrder po : list) {
             if (po.status.equalsIgnoreCase("Approved")) {
                 System.out.println("PO ID: " + po.poID + " | Supplier: " + po.supplierID + " | Status: " + po.status);
@@ -161,7 +159,6 @@ public class FinanceManager {
     static void generateReport() {
         System.out.println("Generating financial report...");
 
-        // Run these from Python/another tool if chart libraries not allowed
         System.out.println("Bar Chart: Refer to 'item_sales_chart.png'");
         System.out.println("Pie Chart: Refer to 'po_approval_status_chart.png'");
     }
@@ -194,4 +191,3 @@ public class FinanceManager {
         }
     }
 }
->>>>>>> c9507d09ccb1b439d103aff894dc5e684d7e523a

@@ -1,5 +1,5 @@
-import java.util.*;
 package FinanceManager;
+import java.util.*;
 
 public class PurchaseOrder {
     private String poID;
